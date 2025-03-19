@@ -55,6 +55,9 @@ var server = http.createServer(function(request, response) {
     if (pathname === '' || pathname === '/index') {
         // Serve the index page if root or /index is requested.
         serveStaticFile(response, path.join(publicDir, 'index.html'), 'text/html', 200);
+    } else if (!path.extname(pathname)) {
+        // If no file extension is provided, assume you want an HTML file.
+        serveStaticFile(response, path.join(publicDir, pathname + '.html'), 'text/html', 200);
     } else if (pathname.endsWith('.html')) {
         // Serve any HTML file under the public folder.
         serveStaticFile(response, path.join(publicDir, pathname), 'text/html', 200);
